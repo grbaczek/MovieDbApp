@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.squareup.sqldelight")
 }
 
 android {
@@ -44,5 +45,17 @@ dependencies {
     implementation(Deps.materialDesign)
     implementation(Deps.timber)
     implementation(Deps.constraintLayout)
+    implementation(Deps.koin)
+    implementation(Deps.koinJava)
+    implementation(Deps.koinNavigation)
+    implementation(Deps.koinTest)
+    implementation(Deps.ktorCore)
+    implementation(Deps.ktorAndroid)
+    implementation(Deps.androidCoroutines)
+    implementation(Deps.sqldelight)
+
+
     testImplementation(Deps.junit)
+    testImplementation(Deps.ktorTest)
+    testImplementation(Deps.sqldelightTest)
 }
