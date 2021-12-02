@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("com.squareup.sqldelight")
+    kotlin(BuildPlugins.serialization) version Versions.Plugins.serialization
 }
 
 android {
@@ -53,9 +54,15 @@ dependencies {
     implementation(Deps.ktorAndroid)
     implementation(Deps.androidCoroutines)
     implementation(Deps.sqldelight)
+    implementation(Deps.sqldelightCoroutines)
+    implementation(Deps.kotlinxSerialization)
+    implementation(Deps.ktorClientSerialization)
 
 
     testImplementation(Deps.junit)
     testImplementation(Deps.ktorTest)
     testImplementation(Deps.sqldelightTest)
+
+    androidTestImplementation(Deps.androidxjUnit)
+    androidTestImplementation(Deps.espresso)
 }

@@ -4,6 +4,7 @@
 object BuildPlugins {
     val android by lazy { "com.android.tools.build:gradle:${Versions.gradlePlugin}" }
     val kotlin by lazy { "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}" }
+    val serialization by lazy { "plugin.serialization" }
 }
 
 /**
@@ -18,17 +19,24 @@ object Deps {
     val koin by lazy { "io.insert-koin:koin-android:${Versions.koin}" }
     val koinJava by lazy { "io.insert-koin:koin-android-compat:${Versions.koin}" }
     val koinNavigation by lazy { "io.insert-koin:koin-androidx-navigation:${Versions.koin}" }
+
     val ktorCore by lazy { "io.ktor:ktor-client-core:${Versions.ktor}" }
     val ktorAndroid by lazy { "io.ktor:ktor-client-android:${Versions.ktor}" }
+    val ktorClientSerialization by lazy {"io.ktor:ktor-client-serialization:${Versions.ktor}"}
+
     val sqldelight by lazy { "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}" }
-    val sqldelightCoroutines by lazy {"com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}"}
-    val androidCoroutines by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.androidCoroutines}"}
+    val sqldelightCoroutines by lazy { "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}" }
+    val androidCoroutines by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.androidCoroutines}" }
+    val kotlinxSerialization by lazy { "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}" }
+
 
     //Test dependencies
     val junit by lazy { "junit:junit:${Versions.jUnit}" }
+    val androidxjUnit by lazy { "androidx.test.ext:junit:${Versions.androidjUnit}" }
+    val espresso by lazy { "androidx.test.espresso:espresso-core:${Versions.androidEspresso}" }
     val koinTest by lazy { "io.insert-koin:koin-test:${Versions.koin}" }
-    val ktorTest by lazy { "io.ktor:ktor-client-mock:${Versions.koin}" }
-    val sqldelightTest by lazy {"com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelight}"}
+    val ktorTest by lazy { "io.ktor:ktor-client-mock:${Versions.ktor}" }
+    val sqldelightTest by lazy { "com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelight}" }
 
 
 }
