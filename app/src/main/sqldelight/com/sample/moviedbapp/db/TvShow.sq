@@ -1,0 +1,14 @@
+CREATE TABLE TvShow (
+  id INTEGER PRIMARY KEY,
+  posterPath TEXT NOT NULL,
+  backdropPath TEXT,
+  name TEXT NOT NULL,
+  overview TEXT NOT NULL,
+  voteAverage REAL NOT NULL
+);
+
+insertOrIgnore:
+INSERT OR IGNORE INTO TvShow(id, posterPath, backdropPath, name, overview, voteAverage)
+VALUES ?;
+
+
