@@ -1,19 +1,40 @@
 CREATE TABLE  TvShowRequestPage(
-     url TEXT NOT NULL,
+     queryId INTEGER  NOT NULL ,
      totalResults INTEGER NOT NULL,
      totalPages INTEGER NOT NULL,
      page INTEGER NOT NULL,
      tvShowId INTEGER NOT NULL,
-     PRIMARY KEY (url, totalResults, totalPages, page, tvShowId),
+     PRIMARY KEY (queryId, totalResults, totalPages, page, tvShowId),
      FOREIGN KEY (tvShowId) REFERENCES TvShow(id) ON DELETE CASCADE
 );
 
+
+
 insertOrIgnore:
-INSERT OR IGNORE INTO TvShowRequestPage(url, totalResults, totalPages, page, tvShowId)
+INSERT OR IGNORE INTO TvShowRequestPage(queryId, totalResults, totalPages, page, tvShowId)
 VALUES ?;
 
 getPage:
 SELECT  id, posterPath, backdropPath, name, overview, voteAverage
 FROM TvShow
 LEFT JOIN TvShowRequestPage ON TvShowRequestPage.tvShowId = TvShow.id
-WHERE TvShowRequestPage.url = ? AND TvShowRequestPage.page = ?;
+WHERE TvShowRequestPage.queryId = ? AND TvShowRequestPage.page = ?;
+
+
+getTopRatedPageLimitOffset:
+SELECT  dbId, id, posterPath, backdropPath, name, overview, voteAverage
+FROM TvShow
+LEFT JOIN TvShowRequestPage ON TvShowRequestPage.tvShowId = TvShow.id
+WHERE TvShowRequestPage.queryId = 1
+ORDER BY TvShow.dbId ASC
+LIMIT :limit OFFSET :offset;
+
+count:
+SELECT COUNT(*)
+FROM TvShow
+LEFT JOIN TvShowRequestPage ON TvShowRequestPage.tvShowId = TvShow.id
+WHERE TvShowRequestPage.queryId = ?;
+
+
+
+

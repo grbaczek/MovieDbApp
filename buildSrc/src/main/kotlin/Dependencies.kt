@@ -22,13 +22,22 @@ object Deps {
 
     val ktorCore by lazy { "io.ktor:ktor-client-core:${Versions.ktor}" }
     val ktorAndroid by lazy { "io.ktor:ktor-client-android:${Versions.ktor}" }
-    val ktorClientSerialization by lazy {"io.ktor:ktor-client-serialization:${Versions.ktor}"}
+    val ktorClientSerialization by lazy { "io.ktor:ktor-client-serialization:${Versions.ktor}" }
 
     val sqldelight by lazy { "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}" }
+    val sqldelightPaging by lazy {"com.squareup.sqldelight:android-paging3-extensions:${Versions.sqlDelight}"}
     val sqldelightCoroutines by lazy { "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}" }
+
+    //Room
+    val roomRuntime by lazy { "androidx.room:room-runtime:${Versions.room}" }
+    val roomCompiler by lazy { "androidx.room:room-compiler:${Versions.room}" }
+    val roomCoroutines by lazy { "androidx.room:room-ktx:${Versions.room}" }
+
     val androidCoroutines by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.androidCoroutines}" }
     val kotlinxSerialization by lazy { "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}" }
 
+    //paging
+    val pagingRuntime by lazy { "androidx.paging:paging-runtime:${Versions.paging}" }
 
     //Test dependencies
     val junit by lazy { "junit:junit:${Versions.jUnit}" }

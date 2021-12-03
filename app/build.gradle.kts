@@ -20,6 +20,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures{
+        dataBinding = true
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -55,8 +59,13 @@ dependencies {
     implementation(Deps.androidCoroutines)
     implementation(Deps.sqldelight)
     implementation(Deps.sqldelightCoroutines)
+    implementation(Deps.sqldelightPaging)
     implementation(Deps.kotlinxSerialization)
     implementation(Deps.ktorClientSerialization)
+
+
+    //implementation(Deps.pagingCommon)
+    implementation(Deps.pagingRuntime)
 
 
     testImplementation(Deps.junit)

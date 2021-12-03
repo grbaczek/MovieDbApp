@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class TvShowResponse(
+data class TvShowApiResponse(
     val id: Long,
     @SerialName("vote_average")
     val voteAverage: Double,

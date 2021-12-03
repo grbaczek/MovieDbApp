@@ -1,0 +1,19 @@
+CREATE TABLE TopRatedPagingRemoteKey(
+    tvShowDbId INTEGER PRIMARY KEY,
+    prevKey INTEGER,
+    nextKey INTEGER,
+    FOREIGN KEY (tvShowDbId) REFERENCES TvShow(dbId) ON DELETE CASCADE
+);
+
+clearRemoteKeys:
+DELETE FROM TopRatedPagingRemoteKey;
+
+insertRemoteKey:
+INSERT INTO TopRatedPagingRemoteKey
+VALUES (?,?,?);
+
+getRemoteKey:
+SELECT *
+FROM TopRatedPagingRemoteKey
+WHERE TopRatedPagingRemoteKey.tvShowDbId = ?
+LIMIT 1;

@@ -1,8 +1,13 @@
 package com.sample.moviedbapp.datasource
 
+import com.sample.moviedbapp.Database
 import com.sample.moviedbapp.datasource.api.ApiSetup
 import com.sample.moviedbapp.datasource.api.TvShowApi
 import com.sample.moviedbapp.datasource.api.TvShowApiKtor
+import com.sample.moviedbapp.datasource.db.TvShowPageDb
+import com.sample.moviedbapp.datasource.db.TvShowPageSqldelight
+import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.squareup.sqldelight.db.SqlDriver
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.cache.HttpCache
@@ -28,14 +33,24 @@ fun getDataSourceModule(): Module {
         single<TvShowApi> {
             TvShowApiKtor(get(), get())
         }
+        single<SqlDriver> {
+            AndroidSqliteDriver(Database.Schema, get(), null)
+        }
+        single {
+            Database(get())
+        }
+        single<TvShowPageDb> {
+            TvShowPageSqldelight(get())
+        }
+        single<TvShowRepository> {
+            TvShowRepositoryImpl(get(), get())
+        }
     }
 }
 
 internal fun getHttpClient(): HttpClient {
     val json = Json {
         ignoreUnknownKeys = true
-        /*parse numbers to strings. BigDecimal -> String*/
-        isLenient = true
     }
     return HttpClient(Android) {
         install(JsonFeature) {
