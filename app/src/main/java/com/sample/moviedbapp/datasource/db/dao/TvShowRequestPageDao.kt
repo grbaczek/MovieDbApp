@@ -38,6 +38,15 @@ abstract class TvShowRequestPageDao {
                     voteAverage = tvShowApi.voteAverage
                 )
             )
+            insertTvShowRequestPage(
+                TvShowRequestPage(
+                    queryId = queryId,
+                    totalPages = totalPages,
+                    totalResults = totalResults,
+                    page = page,
+                    tvShowId = tvShowApi.id
+                )
+            )
         }
     }
 

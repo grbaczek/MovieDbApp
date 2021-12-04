@@ -27,7 +27,7 @@ class App : Application() {
                 },
                 module {
 
-                    viewModel { TopRatedVM(get()) }
+                    viewModel { TopRatedVM(get(), get(), get()) }
                 },
                 getDataSourceModule(
                     tvShowDao = database.getTvShowDao(),

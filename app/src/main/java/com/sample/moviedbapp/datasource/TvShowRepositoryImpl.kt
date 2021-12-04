@@ -9,7 +9,6 @@ import com.sample.moviedbapp.datasource.db.dao.TvShowDao
 import com.sample.moviedbapp.datasource.db.dao.TvShowRequestPageDao
 import com.sample.moviedbapp.datasource.db.entity.RemoteKey
 import com.sample.moviedbapp.datasource.db.entity.TvShow
-import kotlinx.coroutines.runBlocking
 
 
 class TvShowRepositoryImpl(
@@ -19,8 +18,7 @@ class TvShowRepositoryImpl(
     private val remoteKeyDao: RemoteKeyDao
 ) : TvShowRepository {
     override suspend fun cacheTopRatedTvShowsPage(pageIndex: Long): Pair<List<Long>, Long?> {
-
-        val apiPage = runBlocking { tvShowApi.getTopRatedTvShowsPage(pageIndex) }
+        val apiPage = tvShowApi.getTopRatedTvShowsPage(pageIndex)
         tvShowRequestPageDao.insertAll(
             queryId = TOP_RATED_QUERY_ID,
             totalPages = apiPage.totalPages,

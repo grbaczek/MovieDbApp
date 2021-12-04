@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
 
-        val TV_SHOWS_DB: String? = null
+        val TV_SHOWS_DB: String = "tv_show.db"
 
         @Volatile
         private var INSTANCE: AppDatabase? = null
@@ -32,7 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
 
         private fun buildDatabase(context: Context) =
-            Room.inMemoryDatabaseBuilder(context.applicationContext, AppDatabase::class.java)
+            Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, TV_SHOWS_DB)
                 .build()
     }
 
