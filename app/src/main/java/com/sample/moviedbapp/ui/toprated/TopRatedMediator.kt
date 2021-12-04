@@ -6,7 +6,10 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.sample.moviedbapp.datasource.TvShowRepository
+import com.sample.moviedbapp.datasource.api.TvShowApiResponse
+import com.sample.moviedbapp.datasource.api.TvShowsPageApiResponse
 import com.sample.moviedbapp.datasource.db.QueryIds
+import com.sample.moviedbapp.datasource.db.dao.TvShowRequestPageDao
 import com.sample.moviedbapp.datasource.db.entity.RemoteKey
 import com.sample.moviedbapp.datasource.db.entity.TvShow
 
@@ -15,6 +18,7 @@ import java.io.InvalidObjectException
 @ExperimentalPagingApi
 class ExampleRemoteMediator(
     private val tvShowRepository: TvShowRepository,
+    private val tvShowRequestPageDao: TvShowRequestPageDao
 
 ) : RemoteMediator<Int, TvShow>() {
 

@@ -1,18 +1,16 @@
 package com.sample.moviedbapp.datasource.api
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
 
-@Serializable
 data class TvShowApiResponse(
     val id: Long,
-    @SerialName("vote_average")
+    @SerializedName("vote_average")
     val voteAverage: Double,
     val name: String,
     val overview: String,
-    @SerialName("poster_path")
+    @SerializedName("poster_path")
     val posterPath: String,
-    @SerialName("backdrop_path")
+    @SerializedName("backdrop_path")
     val backdropPath: String?
 )

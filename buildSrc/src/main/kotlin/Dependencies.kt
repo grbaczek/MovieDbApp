@@ -20,25 +20,26 @@ object Deps {
     val koinJava by lazy { "io.insert-koin:koin-android-compat:${Versions.koin}" }
     val koinNavigation by lazy { "io.insert-koin:koin-androidx-navigation:${Versions.koin}" }
 
-    val ktorCore by lazy { "io.ktor:ktor-client-core:${Versions.ktor}" }
-    val ktorAndroid by lazy { "io.ktor:ktor-client-android:${Versions.ktor}" }
-    val ktorClientSerialization by lazy { "io.ktor:ktor-client-serialization:${Versions.ktor}" }
-
-    val sqldelight by lazy { "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}" }
-    val sqldelightPaging by lazy {"com.squareup.sqldelight:android-paging3-extensions:${Versions.sqlDelight}"}
-    val sqldelightCoroutines by lazy { "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}" }
-
     //Room
     val roomRuntime by lazy { "androidx.room:room-runtime:${Versions.room}" }
     val roomCompiler by lazy { "androidx.room:room-compiler:${Versions.room}" }
     val roomCoroutines by lazy { "androidx.room:room-ktx:${Versions.room}" }
-    val roomPaging by lazy {"androidx.room:room-paging:${Versions.roomPaging}"}
+    val roomPaging by lazy { "androidx.room:room-paging:${Versions.roomPaging}" }
+
+    //Retrofit
+    val gson by lazy { "com.google.code.gson:gson:${Versions.gson}" }
+    val retrofit by lazy {"com.squareup.retrofit2:retrofit:${Versions.retrofit}"}
+    val retrofitGson by lazy {"com.squareup.retrofit2:converter-gson:${Versions.retrofit}"}
 
     val androidCoroutines by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.androidCoroutines}" }
-    val kotlinxSerialization by lazy { "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}" }
 
     //paging
     val pagingRuntime by lazy { "androidx.paging:paging-runtime:${Versions.paging}" }
+
+    //navigation
+    val navigationFragment by lazy { "androidx.navigation:navigation-fragment-ktx:${Versions.nav}" }
+    val navigationUi by lazy { "androidx.navigation:navigation-ui-ktx:${Versions.nav}" }
+    val naviagtionFeatureModule by lazy { "androidx.navigation:navigation-dynamic-features-fragment:${Versions.nav}" }
 
     //Test dependencies
     val junit by lazy { "junit:junit:${Versions.jUnit}" }

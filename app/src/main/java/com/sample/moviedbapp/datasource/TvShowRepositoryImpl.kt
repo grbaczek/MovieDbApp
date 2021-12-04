@@ -18,7 +18,27 @@ class TvShowRepositoryImpl(
     private val remoteKeyDao: RemoteKeyDao
 ) : TvShowRepository {
     override suspend fun cacheTopRatedTvShowsPage(pageIndex: Long): Pair<List<Long>, Long?> {
-        val apiPage = tvShowApi.getTopRatedTvShowsPage(pageIndex)
+        var apiPage = tvShowApi.getTopRatedTvShowsPage(
+            apiKey = apiKey,
+            page = pageIndex
+        )
+        //Log.i("mediator", "web response received: " + apiPage.page )
+        /*val apiPage = TvShowsPageApiResponse(
+            page = pageIndex,
+            totalResults = 10000,
+            totalPages = 100,
+            results = (1..20).map {
+                TvShowApiResponse(
+                    id= pageIndex * 100 + it,
+                    voteAverage = 8.7,
+                    name = "name" + it,
+                    overview = "overview",
+                    posterPath = "",
+                    backdropPath = ""
+                )
+            }
+        )*/
+
         tvShowRequestPageDao.insertAll(
             queryId = TOP_RATED_QUERY_ID,
             totalPages = apiPage.totalPages,
@@ -26,7 +46,7 @@ class TvShowRepositoryImpl(
             page = apiPage.page,
             tvShows = apiPage.results
         )
-        Log.i("mediator", "cacheTopRatedTvShowsPage - after inster")
+        Log.i("mediator", "cacheTopRatedTvShowsPage - after instert")
         return Pair(
             apiPage.results.map { it.id },
             if (apiPage.page < apiPage.totalPages) apiPage.page + 1L else null
@@ -51,5 +71,9 @@ class TvShowRepositoryImpl(
 
     override val topRatedPagingSource: PagingSource<Int, TvShow>
         get() = tvShowRequestPageDao.getTvShowPagingSource(TOP_RATED_QUERY_ID)
+
+    companion object {
+        val apiKey = "6068441eb40eb1a38c189cb521d2ad36"
+    }
 
 }

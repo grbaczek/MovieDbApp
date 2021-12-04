@@ -1,14 +1,12 @@
 package com.sample.moviedbapp.datasource.api
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class TvShowsPageApiResponse(
     val page: Long,
-    @SerialName("total_results")
+    @SerializedName("total_results")
     val totalResults: Long,
-    @SerialName("total_pages")
+    @SerializedName("total_pages")
     val totalPages: Long,
     val results: List<TvShowApiResponse>
 )

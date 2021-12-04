@@ -22,5 +22,8 @@ object Versions {
     const val androidjUnit = "1.1.3"
     const val androidEspresso = "3.4.0"
     const val paging = "3.1.0"
+    const val nav = "2.3.5"
+    const val gson = "2.8.7"
+    const val retrofit = "2.9.0"
 
 }

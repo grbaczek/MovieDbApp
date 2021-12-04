@@ -57,14 +57,7 @@ dependencies {
     implementation(Deps.koinJava)
     implementation(Deps.koinNavigation)
     implementation(Deps.koinTest)
-    implementation(Deps.ktorCore)
-    implementation(Deps.ktorAndroid)
     implementation(Deps.androidCoroutines)
-    /*implementation(Deps.sqldelight)
-    implementation(Deps.sqldelightCoroutines)
-    implementation(Deps.sqldelightPaging)*/
-    implementation(Deps.kotlinxSerialization)
-    implementation(Deps.ktorClientSerialization)
     implementation(Deps.roomRuntime)
     annotationProcessor(Deps.roomCompiler)
     implementation(Deps.roomCoroutines)
@@ -74,6 +67,15 @@ dependencies {
     //implementation(Deps.pagingCommon)
     implementation(Deps.pagingRuntime)
 
+    //Navigation
+    implementation(Deps.navigationFragment)
+    implementation(Deps.navigationUi)
+    implementation(Deps.naviagtionFeatureModule)
+
+    //Retrofit
+    implementation(Deps.gson)
+    implementation(Deps.retrofit)
+    implementation(Deps.retrofitGson)
 
 
     testImplementation(Deps.junit)

@@ -25,7 +25,7 @@ class TopRatedVM(
             config = PagingConfig(
                 pageSize = 20
             ),
-            remoteMediator = ExampleRemoteMediator(tvShowRepository)
+            remoteMediator = ExampleRemoteMediator(tvShowRepository, tvShowRequestPageDao)
         ) {
             tvShowRequestPageDao.getTvShowPagingSource(TOP_RATED_QUERY_ID)
         }.flow
