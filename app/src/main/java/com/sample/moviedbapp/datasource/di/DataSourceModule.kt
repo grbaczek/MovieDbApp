@@ -1,13 +1,12 @@
 package com.sample.moviedbapp.datasource
 
-import com.sample.moviedbapp.Database
+
 import com.sample.moviedbapp.datasource.api.ApiSetup
 import com.sample.moviedbapp.datasource.api.TvShowApi
 import com.sample.moviedbapp.datasource.api.TvShowApiKtor
-import com.sample.moviedbapp.datasource.db.TvShowPageDb
-import com.sample.moviedbapp.datasource.db.TvShowPageSqldelight
-import com.squareup.sqldelight.android.AndroidSqliteDriver
-import com.squareup.sqldelight.db.SqlDriver
+import com.sample.moviedbapp.datasource.db.dao.RemoteKeyDao
+import com.sample.moviedbapp.datasource.db.dao.TvShowDao
+import com.sample.moviedbapp.datasource.db.dao.TvShowRequestPageDao
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.cache.HttpCache
@@ -17,7 +16,11 @@ import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-fun getDataSourceModule(): Module {
+fun getDataSourceModule(
+    tvShowDao: TvShowDao,
+    tvShowRequestPageDao: TvShowRequestPageDao,
+    remoteKeyDao: RemoteKeyDao
+): Module {
     return module {
         single {
             getHttpClient()
@@ -30,20 +33,20 @@ fun getDataSourceModule(): Module {
                 language = "en-US"
             )
         }
+        single {
+            tvShowDao
+        }
+        single {
+            tvShowRequestPageDao
+        }
+        single {
+            remoteKeyDao
+        }
         single<TvShowApi> {
             TvShowApiKtor(get(), get())
         }
-        single<SqlDriver> {
-            AndroidSqliteDriver(Database.Schema, get(), null)
-        }
-        single {
-            Database(get())
-        }
-        single<TvShowPageDb> {
-            TvShowPageSqldelight(get())
-        }
         single<TvShowRepository> {
-            TvShowRepositoryImpl(get(), get())
+            TvShowRepositoryImpl(get(), get(), get(), get())
         }
     }
 }

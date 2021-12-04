@@ -15,6 +15,7 @@ object Versions {
     const val ktor = "1.6.6"
     const val sqlDelight = "1.5.3"
     const val room = "2.3.0"
+    const val roomPaging = "2.4.0-rc01"
     const val androidCoroutines = "1.3.9"
     const val kotlinxSerialization = "1.3.1"
     const val jUnit = "4.12"

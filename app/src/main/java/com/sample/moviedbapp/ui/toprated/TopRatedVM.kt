@@ -6,7 +6,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.sample.moviedbapp.datasource.TvShowRepository
-import com.sample.moviedbapp.db.TvShow
+import com.sample.moviedbapp.datasource.db.entity.TvShow
+
 import com.sample.moviedbapp.ui.ExampleRemoteMediator
 import kotlinx.coroutines.flow.Flow
 

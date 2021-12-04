@@ -8,7 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.moviedbapp.R
-import com.sample.moviedbapp.db.TvShow
+import com.sample.moviedbapp.datasource.db.entity.TvShow
 
 class TopRatedAdapter :
     PagingDataAdapter<TvShow, TopRatedAdapter.TopRatedTvShowViewHolder>(TvShowComparator) {

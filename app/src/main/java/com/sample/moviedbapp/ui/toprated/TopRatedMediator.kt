@@ -6,18 +6,19 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.sample.moviedbapp.datasource.TvShowRepository
-import com.sample.moviedbapp.db.TopRatedPagingRemoteKey
-import com.sample.moviedbapp.db.TvShow
+import com.sample.moviedbapp.datasource.db.entity.RemoteKey
+import com.sample.moviedbapp.datasource.db.entity.TvShow
+
 import java.io.InvalidObjectException
 
 @ExperimentalPagingApi
 class ExampleRemoteMediator(
     private val tvShowRepository: TvShowRepository
-) : RemoteMediator<Long, TvShow>() {
+) : RemoteMediator<Int, TvShow>() {
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Long, TvShow>
+        state: PagingState<Int, TvShow>
     ): MediatorResult {
         try {
             Log.i(
@@ -43,17 +44,18 @@ class ExampleRemoteMediator(
             val prevKey = if (page == 1L) null else page - 1
             val nextKey = if (isEndOfList) null else page + 1
             val keys = response.first.map {
-                TopRatedPagingRemoteKey(tvShowDbId = it, prevKey = prevKey, nextKey = nextKey)
+                RemoteKey(tvShowId = it, prevKey = prevKey, nextKey = nextKey)
             }
             tvShowRepository.insertRemoteKeys(keys)
 
             return MediatorResult.Success(endOfPaginationReached = isEndOfList)
         } catch (e: Exception) {
+            Log.e("mediatore", e.toString())
             return MediatorResult.Error(e)
         }
     }
 
-    suspend fun getKeyPageData(loadType: LoadType, state: PagingState<Long, TvShow>): Any? {
+    suspend fun getKeyPageData(loadType: LoadType, state: PagingState<Int, TvShow>): Any? {
         return when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getClosestRemoteKey(state)
@@ -77,27 +79,27 @@ class ExampleRemoteMediator(
     /**
      * get the last remote key inserted which had the data
      */
-    private suspend fun getLastRemoteKey(state: PagingState<Long, TvShow>): TopRatedPagingRemoteKey? {
+    private suspend fun getLastRemoteKey(state: PagingState<Int, TvShow>): RemoteKey? {
         return state.pages
             .lastOrNull { it.data.isNotEmpty() }
             ?.data?.lastOrNull()
-            ?.let { tvShow -> tvShowRepository.getRemoteKey(tvShow.dbId) }
+            ?.let { tvShow -> tvShowRepository.getRemoteKey(tvShow.id) }
     }
 
     /**
      * get the first remote key inserted which had the data
      */
-    private suspend fun getFirstRemoteKey(state: PagingState<Long, TvShow>): TopRatedPagingRemoteKey? {
+    private suspend fun getFirstRemoteKey(state: PagingState<Int, TvShow>): RemoteKey? {
         return state.pages
             .firstOrNull() { it.data.isNotEmpty() }
             ?.data?.firstOrNull()
-            ?.let { tvShow -> tvShowRepository.getRemoteKey(tvShow.dbId) }
+            ?.let { tvShow -> tvShowRepository.getRemoteKey(tvShow.id) }
     }
 
     /**
      * get the closest remote key inserted which had the data
      */
-    private suspend fun getClosestRemoteKey(state: PagingState<Long, TvShow>): TopRatedPagingRemoteKey? {
+    private suspend fun getClosestRemoteKey(state: PagingState<Int, TvShow>): RemoteKey? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { dbId ->
                 tvShowRepository.getRemoteKey(dbId)

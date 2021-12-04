@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
+    id("kotlin-kapt")
     id("com.android.application")
     kotlin("android")
-    id("com.squareup.sqldelight")
+    //id("com.squareup.sqldelight")
     kotlin(BuildPlugins.serialization) version Versions.Plugins.serialization
 }
 
@@ -57,20 +60,25 @@ dependencies {
     implementation(Deps.ktorCore)
     implementation(Deps.ktorAndroid)
     implementation(Deps.androidCoroutines)
-    implementation(Deps.sqldelight)
+    /*implementation(Deps.sqldelight)
     implementation(Deps.sqldelightCoroutines)
-    implementation(Deps.sqldelightPaging)
+    implementation(Deps.sqldelightPaging)*/
     implementation(Deps.kotlinxSerialization)
     implementation(Deps.ktorClientSerialization)
-
+    implementation(Deps.roomRuntime)
+    annotationProcessor(Deps.roomCompiler)
+    implementation(Deps.roomCoroutines)
+    implementation(Deps.roomPaging)
+    kapt(Deps.roomCompiler)
 
     //implementation(Deps.pagingCommon)
     implementation(Deps.pagingRuntime)
 
 
+
     testImplementation(Deps.junit)
     testImplementation(Deps.ktorTest)
-    testImplementation(Deps.sqldelightTest)
+    //testImplementation(Deps.sqldelightTest)
 
     androidTestImplementation(Deps.androidxjUnit)
     androidTestImplementation(Deps.espresso)
