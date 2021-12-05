@@ -6,14 +6,14 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.sample.moviedbapp.datasource.TvShowRepository
-import com.sample.moviedbapp.datasource.api.TvShowApiResponse
-import com.sample.moviedbapp.datasource.api.TvShowsPageApiResponse
-import com.sample.moviedbapp.datasource.db.QueryIds
 import com.sample.moviedbapp.datasource.db.dao.TvShowRequestPageDao
 import com.sample.moviedbapp.datasource.db.entity.RemoteKey
 import com.sample.moviedbapp.datasource.db.entity.TvShow
 
 import java.io.InvalidObjectException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 @ExperimentalPagingApi
 class ExampleRemoteMediator(
@@ -31,7 +31,9 @@ class ExampleRemoteMediator(
                 "mediator",
                 "anchor: " + state.anchorPosition + ", state.pages.size: " + state.pages.size
             )
-
+            /*withContext(Dispatchers.IO) {
+                delay(3000)
+            }*/
             val pageKeyData = getKeyPageData(loadType, state)
             val page = when (pageKeyData) {
                 is MediatorResult.Success -> {
@@ -46,18 +48,20 @@ class ExampleRemoteMediator(
                 tvShowRepository.clearAll()
             }
 
-            val response = tvShowRepository.cacheTopRatedTvShowsPage(page)
-            val isEndOfList = response.first.size == 0 || response.second == null
+            val response = tvShowRepository.getTopRatedPage(page)
+            val isEndOfList = response.results.isEmpty() || response.page >= response.totalPages
             val prevKey = if (page == 1L) null else page - 1
             val nextKey = if (isEndOfList) null else page + 1
-            val keys = response.first.map {
-                RemoteKey(tvShowId = it, prevKey = prevKey, nextKey = nextKey)
+            val keys = response.results.map {
+                RemoteKey(tvShowId = it.id, prevKey = prevKey, nextKey = nextKey)
             }
-            tvShowRepository.insertRemoteKeys(keys)
+            tvShowRepository.insertTopRatedPage(response, keys)
+
+            /* */
 
             return MediatorResult.Success(endOfPaginationReached = isEndOfList)
         } catch (e: Exception) {
-            Log.e("mediatore", e.toString())
+            Log.e("mediator", e.toString())
             return MediatorResult.Error(e)
         }
     }

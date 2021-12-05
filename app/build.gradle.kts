@@ -13,7 +13,7 @@ android {
     buildToolsVersion = ConfigData.buildToolsVersion
 
     defaultConfig {
-        applicationId = "com.sample.dsl"
+        applicationId = "com.sample.moviedbapp"
         minSdk = ConfigData.minSdkVersion
         targetSdk = ConfigData.targetSdkVersion
         versionCode = ConfigData.versionCode
@@ -58,10 +58,13 @@ dependencies {
     implementation(Deps.koinNavigation)
     implementation(Deps.koinTest)
     implementation(Deps.androidCoroutines)
+    implementation(Deps.coroutineCore)
     implementation(Deps.roomRuntime)
     annotationProcessor(Deps.roomCompiler)
     implementation(Deps.roomCoroutines)
     implementation(Deps.roomPaging)
+    implementation(Deps.lifeCycleViewModel)
+    implementation(Deps.recyclerView)
     kapt(Deps.roomCompiler)
 
     //implementation(Deps.pagingCommon)

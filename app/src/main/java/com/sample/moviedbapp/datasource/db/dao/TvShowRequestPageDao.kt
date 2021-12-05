@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.sample.moviedbapp.datasource.api.TvShowApiResponse
+import com.sample.moviedbapp.datasource.db.entity.RemoteKey
 import com.sample.moviedbapp.datasource.db.entity.TvShow
 import com.sample.moviedbapp.datasource.db.entity.TvShowRequestPage
 
@@ -19,9 +20,13 @@ abstract class TvShowRequestPageDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract suspend fun insertTvShowRequestPage(tvShows: TvShowRequestPage)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insertRemoteKeys(remoteKey: List<RemoteKey>)
+
     @Transaction
     open suspend fun insertAll(
         tvShows: List<TvShowApiResponse>,
+        remoteKeys: List<RemoteKey>,
         queryId: Int,
         totalResults: Long,
         totalPages: Long,
@@ -48,6 +53,7 @@ abstract class TvShowRequestPageDao {
                 )
             )
         }
+        insertRemoteKeys(remoteKeys)
     }
 
     @Query(

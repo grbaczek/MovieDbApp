@@ -1,10 +1,12 @@
 package com.sample.moviedbapp.ui.toprated
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.sample.moviedbapp.datasource.TvShowRepository
 import com.sample.moviedbapp.datasource.api.TvShowApi
 import com.sample.moviedbapp.datasource.db.QueryIds.TOP_RATED_QUERY_ID

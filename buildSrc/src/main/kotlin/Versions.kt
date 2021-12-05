@@ -25,5 +25,7 @@ object Versions {
     const val nav = "2.3.5"
     const val gson = "2.8.7"
     const val retrofit = "2.9.0"
+    const val lifecycleVersion ="2.2.0"
+    const val recyclerViewVersion = "1.2.0-alpha05"
 
 }

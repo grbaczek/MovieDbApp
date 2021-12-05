@@ -3,6 +3,8 @@ package com.sample.moviedbapp.datasource
 import android.util.Log
 import androidx.paging.PagingSource
 import com.sample.moviedbapp.datasource.api.TvShowApi
+import com.sample.moviedbapp.datasource.api.TvShowApiResponse
+import com.sample.moviedbapp.datasource.api.TvShowsPageApiResponse
 import com.sample.moviedbapp.datasource.db.QueryIds.TOP_RATED_QUERY_ID
 import com.sample.moviedbapp.datasource.db.dao.RemoteKeyDao
 import com.sample.moviedbapp.datasource.db.dao.TvShowDao
@@ -17,8 +19,8 @@ class TvShowRepositoryImpl(
     private val tvShowRequestPageDao: TvShowRequestPageDao,
     private val remoteKeyDao: RemoteKeyDao
 ) : TvShowRepository {
-    override suspend fun cacheTopRatedTvShowsPage(pageIndex: Long): Pair<List<Long>, Long?> {
-        var apiPage = tvShowApi.getTopRatedTvShowsPage(
+    override suspend fun getTopRatedPage(pageIndex: Long): TvShowsPageApiResponse {
+        return tvShowApi.getTopRatedTvShowsPage(
             apiKey = apiKey,
             page = pageIndex
         )
@@ -39,17 +41,27 @@ class TvShowRepositoryImpl(
             }
         )*/
 
-        tvShowRequestPageDao.insertAll(
+        /*tvShowRequestPageDao.insertAll(
             queryId = TOP_RATED_QUERY_ID,
             totalPages = apiPage.totalPages,
             totalResults = apiPage.totalResults,
             page = apiPage.page,
             tvShows = apiPage.results
-        )
+        )*/
         Log.i("mediator", "cacheTopRatedTvShowsPage - after instert")
-        return Pair(
-            apiPage.results.map { it.id },
-            if (apiPage.page < apiPage.totalPages) apiPage.page + 1L else null
+    }
+
+    override suspend fun insertTopRatedPage(
+        tvShowsPageApiResponse: TvShowsPageApiResponse,
+        remoteKeys: List<RemoteKey>
+    ) {
+        tvShowRequestPageDao.insertAll(
+            queryId = TOP_RATED_QUERY_ID,
+            totalPages = tvShowsPageApiResponse.totalPages,
+            totalResults = tvShowsPageApiResponse.totalResults,
+            page = tvShowsPageApiResponse.page,
+            tvShows = tvShowsPageApiResponse.results,
+            remoteKeys = remoteKeys
         )
     }
 

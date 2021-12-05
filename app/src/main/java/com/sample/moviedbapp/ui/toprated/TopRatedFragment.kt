@@ -12,6 +12,7 @@ import com.sample.moviedbapp.databinding.ActivityTopRatedBinding
 import com.sample.moviedbapp.databinding.FragmentTopRatedBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -61,7 +62,7 @@ class TopRatedFragment : Fragment(R.layout.fragment_top_rated) {
         adapter = TopRatedAdapter()
         binding.topRatedList.adapter = adapter
 
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             topRatedVM.fetchData().distinctUntilChanged().collectLatest {
                 adapter.submitData(it)
             }

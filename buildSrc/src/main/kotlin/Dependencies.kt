@@ -31,7 +31,11 @@ object Deps {
     val retrofit by lazy {"com.squareup.retrofit2:retrofit:${Versions.retrofit}"}
     val retrofitGson by lazy {"com.squareup.retrofit2:converter-gson:${Versions.retrofit}"}
 
+    val lifeCycleViewModel by lazy {"androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"}
+
     val androidCoroutines by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.androidCoroutines}" }
+    val coroutineCore by lazy {"org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.androidCoroutines}"}
+    val recyclerView by lazy {"androidx.recyclerview:recyclerview:${Versions.recyclerViewVersion}"}
 
     //paging
     val pagingRuntime by lazy { "androidx.paging:paging-runtime:${Versions.paging}" }
